@@ -16,9 +16,9 @@ public class Horse extends ChessPiece {
                 return false;
             }
 
-            double x = toLine - line;
-            double y = toColumn - column;
-            if ((Math.sqrt(x) + Math.sqrt(y) == 5)) {
+            int x = Math.abs(toLine - line);
+            int y = Math.abs(toColumn - column);
+            if ((x == 1 && y == 2) || (x == 2 && y == 1)) {
                 return true;
             } else return false;
         } else return false;
