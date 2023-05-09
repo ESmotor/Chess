@@ -18,9 +18,7 @@ public class Rook extends ChessPiece {
             }
             int x = Math.abs(toLine - line);
             int y = Math.abs(toColumn - column);
-            if (x == 0 || y == 0) {
-                return true;
-            } else return false;
+            return x == 0 || y == 0;
         }
         return false;
     }

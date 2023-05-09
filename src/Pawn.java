@@ -30,9 +30,7 @@ public class Pawn extends ChessPiece {
 
             if (this.getColor().equals("Black") && line == 6 && x == -2 && y == 0) {
                 return true;
-            } else if (this.getColor().equals("Black") && x == -1 && y == 0) {
-                return true;
-            }
+            } else return this.getColor().equals("Black") && x == -1 && y == 0;
         }
         return false;
     }

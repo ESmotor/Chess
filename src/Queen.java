@@ -17,9 +17,7 @@ public class Queen extends ChessPiece {
             }
             int x = Math.abs(toLine - line);
             int y = Math.abs(toColumn - column);
-            if (x == y || x == 0 || y == 0) {
-                return true;
-            } else return false;
+            return x == y || x == 0 || y == 0;
         }
         return false;
     }

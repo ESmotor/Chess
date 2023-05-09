@@ -31,13 +31,9 @@ public class King extends ChessPiece {
                         if (chessPiece.canMoveToPosition(board, i, j, line, column)) {
                             return true;
                         }
-
                     }
-
-
                 }
             }
-
         }
         return false;
     }

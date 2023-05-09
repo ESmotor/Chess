@@ -16,11 +16,7 @@ public class Bishop extends ChessPiece {
             if (line == toLine && column == toColumn) {
                 return false;
             }
-            int x = Math.abs(toLine - line);
-            int y = Math.abs(toColumn - column);
-            if (x == y) {
-                return true;
-            } else return false;
+            return Math.abs(toLine - line) == Math.abs(toColumn - column);
         }
         return false;
     }
