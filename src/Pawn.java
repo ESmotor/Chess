@@ -39,9 +39,7 @@ public class Pawn extends ChessPiece {
             // Проверяем возможность двигать белую пешку и рубить по диагонали влево и вправо
             if (this.getColor().equals("White")) {
                 if ((toLine - line) == 1 && (toColumn - column) == 0) {
-                    if (chessBoard.board[toLine][toColumn] == null) {
-                        return true;
-                    } else return false;
+                    return chessBoard.board[toLine][toColumn] == null;
 
                 } else if ((toLine - line) == 1 && Math.abs(toColumn - column) == 1 &&
                         chessBoard.board[toLine][toColumn] != null && chessBoard.board[toLine][toColumn].getColor().equals("Black")) {
@@ -51,14 +49,10 @@ public class Pawn extends ChessPiece {
             // Проверяем возможность двигать черную пешку и рубить по диагонали влево и вправо
             if (this.getColor().equals("Black")) {
                 if ((toLine - line) == -1 && (toColumn - column) == 0) {
-                    if (chessBoard.board[toLine][toColumn] == null) {
-                        return true;
-                    } else return false;
+                    return chessBoard.board[toLine][toColumn] == null;
 
-                } else if ((toLine - line) == -1 && Math.abs(toColumn - column) == 1 &&
-                        chessBoard.board[toLine][toColumn] != null && chessBoard.board[toLine][toColumn].getColor().equals("White")) {
-                    return true;
-                }
+                } else return (toLine - line) == -1 && Math.abs(toColumn - column) == 1 &&
+                        chessBoard.board[toLine][toColumn] != null && chessBoard.board[toLine][toColumn].getColor().equals("White");
             }
         }
         return false;
