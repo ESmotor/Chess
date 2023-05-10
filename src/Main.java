@@ -16,11 +16,11 @@ public class Main {
         board.board[1][0] = new Pawn("White");
         board.board[1][1] = new Pawn("White");
         board.board[1][2] = new Pawn("White");
-        board.board[1][3] = new Pawn("White");
-        board.board[1][4] = new Pawn("White");
+        board.board[2][3] = new Pawn("White");
+        board.board[3][4] = new Pawn("White");
         board.board[1][5] = new Pawn("White");
         board.board[1][6] = new Pawn("White");
-        board.board[1][7] = new Pawn("White");
+        board.board[4][7] = new Pawn("White");
 
         board.board[7][0] = new Rook("Black");
         board.board[7][1] = new Horse("Black");
@@ -30,7 +30,7 @@ public class Main {
         board.board[7][5] = new Bishop("Black");
         board.board[7][6] = new Horse("Black");
         board.board[7][7] = new Rook("Black");
-        board.board[6][0] = new Pawn("Black");
+        board.board[5][0] = new Pawn("Black");
         board.board[6][1] = new Pawn("Black");
         board.board[6][2] = new Pawn("Black");
         board.board[6][3] = new Pawn("Black");

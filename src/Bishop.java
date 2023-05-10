@@ -1,3 +1,5 @@
+import javax.sound.sampled.Line;
+
 public class Bishop extends ChessPiece {
 
     public Bishop(String color) {
@@ -11,28 +13,43 @@ public class Bishop extends ChessPiece {
 
     @Override
     boolean canMoveToPosition(ChessBoard chessBoard, int line, int column, int toLine, int toColumn) {
+        // Если начальная и конечная позиции принадлежат доске
         if (chessBoard.checkPos(line) && chessBoard.checkPos(column)
                 && chessBoard.checkPos(toLine) && chessBoard.checkPos(toColumn)) {
+            // Если начальная и конечная позиции совпадают, то нет
             if (line == toLine && column == toColumn) {
                 return false;
             }
-
+            // Если в конечной позиции стоит фигура того же цвета, то нет
+            if (chessBoard.board[toLine][toColumn] != null &&
+                    chessBoard.board[line][column].getColor().equals(chessBoard.board[toLine][toColumn].getColor())) {
+                return false;
+            }
+            // Если в точку можно пройти данной фигурой
             if (Math.abs(toLine - line) == Math.abs(toColumn - column)) {
-                int unitLine = (toLine - line) / Math.abs(toLine - line);
-                int unitColumn = (toColumn - column) / Math.abs(toLine - line);
-                int nextСellLine = line + unitLine;
-                int nextСellColumn = column + unitColumn;
-                while (true) {
-                    if (nextСellLine == toLine && nextСellColumn == toColumn) {
-                        if (!chessBoard.board[nextСellLine][nextСellColumn].getColor().equals("White")) {
-                            return true;
-                        } else return false;
-                    } else if (chessBoard.board[nextСellLine][nextСellColumn] != null) {
-                        return false;
-                    }
+                //определим единичный вектор для направления движения
+                int unitLine, unitColumn;
+                if (toLine == line) {
+                    unitLine = 0;
+                } else unitLine = (toLine - line) > 0 ? 1 : -1;
+
+                if (toColumn == column) {
+                    unitColumn = 0;
+                } else unitColumn = (toColumn - column) > 0 ? 1 : -1;
+
+                // проверяем клетки по пути движения на возможность перемещения
+                int nextСellLine = line;
+                int nextСellColumn = column;
+                do {
                     nextСellLine += unitLine;
                     nextСellColumn += unitColumn;
-                }
+                    if (chessBoard.board[nextСellLine][nextСellColumn] != null &&
+                            !(nextСellLine == toLine && nextСellColumn == toColumn)) {
+                        return false;
+                    }
+                } while (!(nextСellLine == toLine && nextСellColumn == toColumn));
+
+                return true;
             }
         }
         return false;
