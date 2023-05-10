@@ -16,7 +16,24 @@ public class Bishop extends ChessPiece {
             if (line == toLine && column == toColumn) {
                 return false;
             }
-            return Math.abs(toLine - line) == Math.abs(toColumn - column);
+
+            if (Math.abs(toLine - line) == Math.abs(toColumn - column)) {
+                int unitLine = (toLine - line) / Math.abs(toLine - line);
+                int unitColumn = (toColumn - column) / Math.abs(toLine - line);
+                int nextСellLine = line + unitLine;
+                int nextСellColumn = column + unitColumn;
+                while (true) {
+                    if (nextСellLine == toLine && nextСellColumn == toColumn) {
+                        if (!chessBoard.board[nextСellLine][nextСellColumn].getColor().equals("White")) {
+                            return true;
+                        } else return false;
+                    } else if (chessBoard.board[nextСellLine][nextСellColumn] != null) {
+                        return false;
+                    }
+                    nextСellLine += unitLine;
+                    nextСellColumn += unitColumn;
+                }
+            }
         }
         return false;
     }
