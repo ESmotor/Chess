@@ -68,7 +68,6 @@ public class ChessBoard {
                     if (changePtoQ) {
                         this.board[startLine][startColumn] = new Pawn(this.board[startLine][startColumn].getColor());
                     }
-                    changePtoQ = false;
                     return false;
                 }
 
