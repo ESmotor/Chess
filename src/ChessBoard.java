@@ -11,22 +11,81 @@ public class ChessBoard {
     }
 
     public boolean moveToPosition(int startLine, int startColumn, int endLine, int endColumn) {
-        if (checkPos(startLine) && checkPos(startColumn)) {
+        if (checkPos(startLine) && checkPos(startColumn)) { //Если клетка внутри доски
+            System.out.println();
+            if (!nowPlayer.equals(board[startLine][startColumn].getColor()))
+                return false; //если взяли фигугу не того цвета
 
-            if (!nowPlayer.equals(board[startLine][startColumn].getColor())) return false;
-
+            // Если возможно сделать ход то
             if (board[startLine][startColumn].canMoveToPosition(this, startLine, startColumn, endLine, endColumn)) {
-
-                if (board[startLine][startColumn].getSymbol().equals("K") ||  // check position for castling
-                        board[startLine][startColumn].getSymbol().equals("R")) {
-                    board[startLine][startColumn].check = false;
+                ChessPiece chessPiece;
+                boolean changePtoQ = false;
+                if (this.board[startLine][startColumn].getSymbol().equals("P") &&
+                        ((this.board[startLine][startColumn].getColor().equals("White") && endLine == 7) ||
+                                (this.board[startLine][startColumn].getColor().equals("Black") && endLine == 0))) {
+                    chessPiece = this.board[endLine][endColumn];
+                    board[endLine][endColumn] = new Queen(this.board[startLine][startColumn].getColor()); // перемещаем фигуру в конечную клетку (копируем)
+                    board[startLine][startColumn] = null; // удаляем предыдущую фигуру
+                    changePtoQ = true;
+                } else {
+                    chessPiece = this.board[endLine][endColumn];
+                    board[endLine][endColumn] = board[startLine][startColumn]; // перемещаем фигуру в конечную клетку (копируем)
+                    board[startLine][startColumn] = null; // удаляем предыдущую фигуру
                 }
 
-                board[endLine][endColumn] = board[startLine][startColumn]; // if piece can move, we moved a piece
-                board[startLine][startColumn] = null; // set null to previous cell
-                this.nowPlayer = this.nowPlayerColor().equals("White") ? "Black" : "White";
 
+                //Проверка местонахождения королей
+                King whiteKing = new King("White"); //создаем белого короля
+                int whiteKingLine = 0;
+                int whiteKingColumn = 0;
+                King blackKing = new King("Black");//создаем черного короля
+                int blackKingLine = 0;
+                int blackKingColumn = 0;
+
+                for (int i = 0; i < 8; i++) {
+                    for (int j = 0; j < 8; j++) {
+
+                        if (this.board[i][j] != null && this.board[i][j].getSymbol().equals("K")) {
+                            if (this.board[i][j].getColor().equals("White")) { // нашли белого короля сохранили в него нашего
+                                whiteKingLine = i;
+                                whiteKingColumn = j;
+                                this.board[i][j] = whiteKing;
+                            } else if (this.board[i][j].getColor().equals("Black")) {// нашли черного короля сохранили в него нашего
+                                blackKingLine = i;
+                                blackKingColumn = j;
+                                this.board[i][j] = blackKing;
+                            }
+                        }
+
+                    }
+                }
+
+                // если игрок пошел и его король остался под шахом, то ход отменяется
+                if ((this.nowPlayerColor().equals("White") && whiteKing.isUnderAttack(this, whiteKingLine, whiteKingColumn)) ||
+                        (this.nowPlayerColor().equals("Black") && blackKing.isUnderAttack(this, blackKingLine, blackKingColumn))) {
+                    board[startLine][startColumn] = board[endLine][endColumn];
+                    board[endLine][endColumn] = chessPiece;
+                    if (changePtoQ) {
+                        this.board[startLine][startColumn] = new Pawn(this.board[startLine][startColumn].getColor());
+                    }
+                    changePtoQ = false;
+                    return false;
+                }
+
+                // если игрок пошел и король соперника под шахом
+                if (this.nowPlayerColor().equals("White")) {
+                    blackKing.isUnderAttack(this, blackKingLine, blackKingColumn);
+                } else if (this.nowPlayerColor().equals("Black")) {
+                    whiteKing.isUnderAttack(this, whiteKingLine, whiteKingColumn);
+                }
+
+                if (board[endLine][endColumn].getSymbol().equals("K") ||  // check position for castling
+                        board[endLine][endColumn].getSymbol().equals("R")) {
+                    board[endLine][endColumn].check = false;
+                }
+                this.nowPlayer = this.nowPlayerColor().equals("White") ? "Black" : "White";
                 return true;
+
             } else return false;
         } else return false;
     }

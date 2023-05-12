@@ -36,16 +36,16 @@ public class Rook extends ChessPiece {
                 } else unitColumn = (toColumn - column) > 0 ? 1 : -1;
 
                 // проверяем клетки по пути движения на возможность перемещения
-                int nextСellLine = line;
-                int nextСellColumn = column;
+                int cellLine = line;
+                int cellColumn = column;
                 do {
-                    nextСellLine += unitLine;
-                    nextСellColumn += unitColumn;
-                    if (chessBoard.board[nextСellLine][nextСellColumn] != null &&
-                            !(nextСellLine == toLine && nextСellColumn == toColumn)) {
+                    cellLine += unitLine;
+                    cellColumn += unitColumn;
+                    if (chessBoard.board[cellLine][cellColumn] != null &&
+                            !(cellLine == toLine && cellColumn == toColumn)) {
                         return false;
                     }
-                } while (!(nextСellLine == toLine && nextСellColumn == toColumn));
+                } while (!(cellLine == toLine && cellColumn == toColumn));
                 return true;
             }
         }

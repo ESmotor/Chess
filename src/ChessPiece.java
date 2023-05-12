@@ -3,6 +3,7 @@ abstract public class ChessPiece {
     boolean check = true;
 
     public ChessPiece(String color) {
+
         this.color = color;
     }
 
@@ -11,4 +12,7 @@ abstract public class ChessPiece {
     abstract boolean canMoveToPosition(ChessBoard chessBoard, int line, int column, int toLine, int toColumn);
 
     abstract String getSymbol();
+
+
+
 }
