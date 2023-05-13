@@ -65,23 +65,31 @@ public class King extends ChessPiece {
                         if (board.board[i][j].getSymbol().equals("P")) {
                             if (board.board[i][j].getColor().equals("White")) {
                                 if (line == i + 1 && (column == j - 1 || column == j + 1)) {
-                                    System.out.println(this.getColor() + " " + "King под Шахом!");
+                                    System.out.printf("%s King под шахом от %s%s(%d,%d)!\n",
+                                            this.getColor(),board.board[i][j].getSymbol(),
+                                            String.valueOf(board.board[i][j].getColor().charAt(0)).toLowerCase(),i,j);
                                     return true;
                                 }
                             } else if (board.board[i][j].getColor().equals("Black")) {
                                 if (line == i - 1 && (column == j - 1 || column == j + 1)) {
-                                    System.out.println(this.getColor() + " " + "King под Шахом!");
+                                    System.out.printf("%s King под шахом от %s%s(%d,%d)!\n",
+                                            this.getColor(),board.board[i][j].getSymbol(),
+                                            String.valueOf(board.board[i][j].getColor().charAt(0)).toLowerCase(),i,j);
                                     return true;
                                 }
                             }
                         } else if (board.board[i][j].getSymbol().equals("K")) {
                             if (Math.abs(line - i) <= 1 && Math.abs(column - j) <= 1) {
-                                System.out.println(this.getColor() + " " + "King под Шахом!");
+                                System.out.printf("%s King под шахом от %s%s(%d,%d)!\n",
+                                        this.getColor(),board.board[i][j].getSymbol(),
+                                        String.valueOf(board.board[i][j].getColor().charAt(0)).toLowerCase(),i,j);
                                 return true;
                             }
                         } else {
                             if (board.board[i][j].canMoveToPosition(board, i, j, line, column)) {
-                                System.out.println(this.getColor() + " " + "King под Шахом!");
+                                System.out.printf("%s King под шахом от %s%s(%d,%d)!\n",
+                                        this.getColor(),board.board[i][j].getSymbol(),
+                                        String.valueOf(board.board[i][j].getColor().charAt(0)).toLowerCase(),i,j);
                                 return true;
                             }
                         }
